@@ -41,8 +41,7 @@ workflows:
       - build-and-test
 
       - approval-deploy:
-          name: deploy_staging
-          ENV: staging
-          context: studentcn
+          type: approval
+          name: deploy
           requires:
-            - approve_staging
+            - build-and-test
