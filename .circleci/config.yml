@@ -25,7 +25,7 @@ jobs:
             sudo apt-get install -y openssh-client
       - add_ssh_keys:
           fingerprints:
-            - SSHA256:rv9Idq7QWNCXoSUZFHyQ1B0fcqmR7NOT9xwtELwlxF8
+            - SSHA256:rv9Idq7QWNCXoSUZFHyQ1B0fcqmRXXXXXXX
       - run:
           name: Deploy to Server
           command: |
