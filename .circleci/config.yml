@@ -17,16 +17,18 @@ jobs:
           command: pytest
 
   approval-deploy:
+    docker:
+        - image: cimg/python:3.12
 
     steps:
-     - run:
+      - run:
           name: Install SSH Dependencies
           command: |
             sudo apt-get update
             sudo apt-get install -y openssh-client
       - add_ssh_keys:
           fingerprints:
-            - "SSHA256:rv9Idq7QWNCXoSUZFHyQ1B0fcqmR7NOT9xwtELwlxF8"
+            - SSHA256:rv9Idq7QWNCXoSUZFHyQ1B0fcqmR7NOT9xwtELwlxF8
       - run:
           name: Deploy to Server
           command: |
@@ -37,8 +39,10 @@ workflows:
   do-it-all:
     jobs:
       - build-and-test
-      - approval-deploy
-        type: approval
-        name: deploy
-        requires:
-          - build-and-test
+
+      - approval-deploy:
+          name: deploy_staging
+          ENV: staging
+          context: studentcn
+          requires:
+            - approve_staging
